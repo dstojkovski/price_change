@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price Filter</title>
+    <link rel="stylesheet" href="prices.css">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* This ensures the content is centered vertically on the page */
+        }
+
+        .price {
+            padding: 10px;
+            margin: 10px;
+            display: none; /* Initially hide all prices */
+        }
+
+        img { 
+            margin-top: 5vh;
+            margin-bottom: 2vh;
+            height: 50vh;
+            border-radius: 25px;
+        }
+    </style>
+</head>
+<body>
+    <div id="main-image">
+        <h1>For more information please contact:</h1>
+        <h3>contact@natashamccloypsychic.com or <br> 0027-73-902-6412</h3>
+        <img src="https://static.wixstatic.com/media/586f74_b336db9baaa5402a804ecf14e6105aff~mv2.png/v1/fill/w_335,h_511,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/PROFILE%20PIC.png">
+    </div>
+    
+    <div class="price" data-country="ZA">
+        <h2>South Africa and Africa</h2>
+        <img src="https://static.wixstatic.com/media/586f74_b336db9baaa5402a804ecf14e6105aff~mv2.png/v1/fill/w_335,h_511,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/PROFILE%20PIC.png">
+        <p>ZAR895 (50 minutes) / ZAR550 (half an hour) <br> USD$ 46 (50 minutes)</p>
+    </div>
+
+    <div class="price" data-country="US">
+        <h2>America</h2>
+        <img src="https://static.wixstatic.com/media/586f74_b336db9baaa5402a804ecf14e6105aff~mv2.png/v1/fill/w_335,h_511,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/PROFILE%20PIC.png">
+        <p>$USD 125 (50 minutes)</p>
+    </div>
+
+    <div class="price" data-country="AU">
+        <h2>Australia</h2>
+        <img src="https://static.wixstatic.com/media/586f74_b336db9baaa5402a804ecf14e6105aff~mv2.png/v1/fill/w_335,h_511,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/PROFILE%20PIC.png">
+        <p>$AUD165 (50 minutes)</p>
+    </div>
+
+    <div class="price" data-country="HK">
+        <h2>Hong Kong</h2>
+        <img src="https://static.wixstatic.com/media/586f74_b336db9baaa5402a804ecf14e6105aff~mv2.png/v1/fill/w_335,h_511,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/PROFILE%20PIC.png">
+        <p>$HKD 795 (50 minutes)</p>
+    </div>
+
+    <div class="price" data-country="SG">
+        <h2>Singapore</h2>
+        <img src="https://static.wixstatic.com/media/586f74_b336db9baaa5402a804ecf14e6105aff~mv2.png/v1/fill/w_335,h_511,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/PROFILE%20PIC.png">
+        <p>$SGD135 (50 minutes)</p>
+    </div>
+
+    <div class="price" data-country="CA">
+        <h2>Canada</h2>
+        <img src="https://static.wixstatic.com/media/586f74_b336db9baaa5402a804ecf14e6105aff~mv2.png/v1/fill/w_335,h_511,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/PROFILE%20PIC.png">
+        <p>$CAD165 (half an hour)</p>
+    </div>
+
+    <div class="price" data-country="GB">
+        <h2>UK</h2>
+        <img src="https://static.wixstatic.com/media/586f74_b336db9baaa5402a804ecf14e6105aff~mv2.png/v1/fill/w_335,h_511,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/PROFILE%20PIC.png">
+        <p>British pounds 95</p>
+    </div>
+
+    <div class="price" data-country="EU">
+        <h2>Europe</h2>
+        <img src="https://static.wixstatic.com/media/586f74_b336db9baaa5402a804ecf14e6105aff~mv2.png/v1/fill/w_335,h_511,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/PROFILE%20PIC.png">
+        <p>EUROS 95</p>
+    </div>
+
+    <div id="paypal-button-container"></div>
+
+    <script>
+        function loadPayPalScript(countryCode) {
+            const script = document.createElement('script');
+            script.src = `https://www.paypal.com/sdk/js?client-id=AaZM_ELO27j5QIDXQ1KvTTQi7ESvkkwFTZntJAeuCgBTDdcHIrvAZbVaRFKauFu5NVbMJ8O0yaCRlBJZ&currency=${getCurrencyCode(countryCode)}`;
+            script.async = true;
+            script.onload = () => setupPayPalButton(countryCode);
+            document.head.appendChild(script);
+        }   
+
+        function getCurrencyCode(countryCode) {
+            switch (countryCode) {
+                case 'EU':
+                    return 'EUR';
+                case 'US':
+                    return 'USD';
+                case 'CA':
+                    return 'CAD';
+                case 'ZA':
+                    return 'USD';
+                case 'SG':
+                    return 'SGD';
+                case 'HK':
+                    return 'HKD';
+                case 'GB':
+                    return 'GBP';
+                case 'AU':
+                    return 'AUD';
+            }
+        }
+
+        function setupPayPalButton(countryCode) {
+            let priceValue;
+            
+
+            switch (countryCode) {
+                case 'ZA':
+                    priceValue = 46.00;
+                    break;
+                case 'US':
+                    priceValue = 125.00;
+                    break;
+                case 'AU':
+                    priceValue = 165.00;
+                    break;
+                case 'HK':
+                    priceValue = 795.00;
+                    break;
+                case 'SG':
+                    priceValue = 135.00;
+                    break;
+                case 'CA':
+                    priceValue = 165.00;
+                    break;
+                case 'GB':
+                    priceValue = 95.00;
+                    break;
+                case 'EU':
+                    priceValue = 95.00;
+                    break;
+            }
+
+            paypal.Buttons({
+                createOrder: function(data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: priceValue.toFixed(2),
+                                currency_code: getCurrencyCode(countryCode)
+                            }
+                        }]
+                    });
+                },
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(details) {
+                        alert('Transaction completed by ' + details.payer.name.given_name);
+                    });
+                }
+            }).render('#paypal-button-container');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fetch country code once
+            fetch('https://ipapi.co/json/')
+                .then(response => response.json())
+                .then(data => {
+                    const countryCode = data.country;
+                    const isCountryRecognized = ['ZA', 'US', 'AU', 'HK', 'SG', 'CA', 'GB', 'EU', 'MK'].includes(countryCode);
+
+                    if (isCountryRecognized) {
+                        loadPayPalScript(countryCode);
+                        const priceDiv = document.querySelector(`[data-country="${countryCode}"]`);
+                        priceDiv.style.display = 'block';
+                        document.getElementById('main-image').style.display = 'none';
+                    } else {
+                        document.getElementById('paypal-button-container').style.display = 'none';
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
